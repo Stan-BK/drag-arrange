@@ -1,5 +1,10 @@
 ;(function() {
   window.draggableContent = function(el) {
+    const canvas = document.createElement('canvas')
+    canvas.width = 1
+    canvas.height = 1
+    const img = new Image()
+    img.src = canvas.toDataURL()
     const wrap = document.querySelector(el)
     const nodes = []
     const children = wrap.children
@@ -37,6 +42,7 @@
 
     function dragStart(e) {
       dragItem = nodes.find(item => item.node === e.target)
+      e.dataTransfer.setDragImage(img, 0, 0)
     }
     
     function dragEnter(e) {
@@ -63,5 +69,4 @@
 })()
 window.onload = function() {
   draggableContent('.wrap')
-
 }
